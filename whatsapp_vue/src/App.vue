@@ -5,12 +5,26 @@
         <div class="columns">
           <div class="column is-3 lista-de-conversas">
             <div class="barra-superior" />
-            <p v-for="conversa in conversas">{{conversa}}</p>
+            <div class="item" v-for="conversa, index in conversas" v-bind:key="index" @click="indiceAtivo = index">
+              <div class="title is-6">
+                {{ conversa.usuario }}
+              </div>
+              <div class="subtittle is-6">
+                Última Mensagem...
+              </div>
+            </div>
           </div>
           <div class="column conversa-ativa">
             <div class="barra-superior">
-              <span>Usuário</span>
+              <span>{{conversas[indiceAtivo].usuario}}</span>
             </div>
+            <Mensagem
+              v-for="(mensagem, indice) in conversas[indiceAtivo].mensagens"
+              v-bind:key="indice"
+              :conteudo="mensagem.conteudo"
+              :horario="mensagem.horario"
+              :verde="mensagem.verde"
+            />
           </div>
         </div>
       </div>
@@ -19,13 +33,18 @@
 </template>
 
 <script>
-  import conversasIniciais from '/dados.js';
+  import conversasIniciais from './dados.js'
+  import Mensagem from './mensagem.vue'
 
   export default {
     data: function(){
       return{
-        conversas: conversasIniciais
+        conversas: conversasIniciais,
+        indiceAtivo: 0
       }
+    },
+    components: {
+      Mensagem
     }
   }
 </script>
@@ -55,5 +74,17 @@
     line-height: 50px;
     margin-left: 25px;
     font-weight: 500;
+  }
+  div.item{
+    border-bottom: 1px solid #f2f2f2;
+    padding: 15px 30px;
+    margin-bottom: 0 !important;
+  }
+  div.subtittle{
+    color: #808080;
+  }
+  div.item:hover{
+    background: #f5f5f5;
+    cursor: pointer;
   }
 </style>

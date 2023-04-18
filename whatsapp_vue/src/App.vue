@@ -18,13 +18,18 @@
             <div class="barra-superior">
               <span>{{conversas[indiceAtivo].usuario}}</span>
             </div>
-            <Mensagem
+            <div class="lista-mensagens">
+              <Mensagem
               v-for="(mensagem, indice) in conversas[indiceAtivo].mensagens"
               v-bind:key="indice"
               :conteudo="mensagem.conteudo"
               :horario="mensagem.horario"
               :verde="mensagem.verde"
-            />
+              />
+            </div>
+            <div class="barra-inferior">
+              <input type="text" class="input" placeholder="Insira sua mensagem">
+            </div>
           </div>
         </div>
       </div>
@@ -50,8 +55,29 @@
 </script>
 
 <style>
+  div.barra-inferior{
+    bottom: 0;
+    width: 77%;
+    padding: 10px;
+    position: absolute;
+    background: #f0f0f0;
+  }
+  div.barra-inferior input{
+    border: none;
+    padding: 10px;
+    margin: 0 50px;
+    width: 90%;
+    border-radius: 15px;
+    font-size: 16px;
+  }
+  div.lista-mensagens{
+    height: 85%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+  }
   div.columns{
-    min-height: 800px;
+    min-height: 750px;
     box-shadow: 0 3rem 3rem -1rem rgba(10, 10, 10, .2);
   }
   div.column{
